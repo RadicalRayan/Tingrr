@@ -12,6 +12,11 @@ import android.view.View;
 
 import java.util.ArrayList;
 
+/*
+
+this is fred!! Checking github
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
