@@ -1,0 +1,33 @@
+9 questions
+Is anyone in your family allergic to dogs ? 0	2
+Yes	Y
+No	N
+Do you need a dog that's good with kids ? 1	2
+Yes	Y
+No	N
+Do you live in a warm or cold climate ? 3	3
+Warm	W
+Cold	C
+Neutral	N
+Do you live in an apartment or house ? 3	2
+Apartment	A
+House	H
+How L is your Backyard ? 3	3
+Small	S
+Medium	M
+Large	L
+What size dog do you want ? 4	3
+Small	S
+Medium	M
+Large	L
+Do you want an agility/hunting dog ? 5	2
+Yes	L
+No	S
+How energetic do you want your dog to Le ? 5	3
+Low	S
+Medium	M
+High	L
+How much grooming maintence do you want your dog to have ? 6	3
+Low	S
+Medium	M
+High	L
