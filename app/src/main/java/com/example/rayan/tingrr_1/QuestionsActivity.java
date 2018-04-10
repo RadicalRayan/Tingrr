@@ -1,28 +1,112 @@
 package com.example.rayan.tingrr_1;
 
-/**
- * Created by FredQ on 3/20/2018.
- */
 import android.content.Context;
-import android.content.res.AssetManager;
+import android.graphics.Color;
+import android.os.Debug;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
-import java.io.*;
-import java.util.*;
-public class InputParser {
-    public static void main (String [] args) throws IOException {
-        /*
+import org.w3c.dom.Text;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Scanner;
+import java.util.StringTokenizer;
+
+
+public class QuestionsActivity extends AppCompatActivity {
+
+    TextView txtQuestion;
+    Button opt1;
+    Button opt2;
+    Button opt3;
+    Button submit;
+    public int selected = 0;
+    public boolean submitted = false;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_questions);
+
+        opt1 = (Button) findViewById(R.id.btnOne);
+        opt2 = (Button) findViewById(R.id.btnTwo);
+        opt3 = (Button) findViewById(R.id.btnThree);
+        txtQuestion = (TextView) findViewById(R.id.question);
+        submit = (Button) findViewById(R.id.btnSubmit);
+        opt1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selected = 0;
+                opt1.setBackgroundColor(Color.parseColor("black"));
+                opt2.setBackgroundColor(Color.parseColor("white"));
+                opt3.setBackgroundColor(Color.parseColor("white"));
+            }
+        });
+        opt2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selected = 1;
+                opt1.setBackgroundColor(Color.parseColor("white"));
+                opt2.setBackgroundColor(Color.parseColor("black"));
+                opt3.setBackgroundColor(Color.parseColor("white"));
+            }
+        });
+        opt3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selected = 2;
+                opt1.setBackgroundColor(Color.parseColor("white"));
+                opt2.setBackgroundColor(Color.parseColor("black"));
+                opt3.setBackgroundColor(Color.parseColor("white"));
+            }
+        });
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                submitted = true;
+            }
+        });
+
         String dogFile = "DogInfo.txt";
         String QFile = "QuestionsActivity.txt";
-        Dog[] dogs = parseDogs(dogFile);
-        Question[] questions = parseQuestions(QFile);
+        Dog[] dogs = parseDogs(dogFile, getApplicationContext());
+        Question[] questions = parseQuestions(QFile, getApplicationContext());
         Scanner reader = new Scanner(System.in);
         for (int i = 0; i < questions.length; i++) {
-            System.out.println(questions[i].getQuestion());
+            submitted = false;
+            txtQuestion.setText(questions[i].getQuestion());
             String[] options = questions[i].getOptions();
-            for(String s:options) {
-                System.out.println(s);
+            if (options.length==2) {
+                opt1.setText(options[0]);
+                opt2.setText(options[1]);
+                opt3.setVisibility(View.INVISIBLE);
+            } else if (options.length==3) {
+                opt1.setText(options[0]);
+                opt2.setText(options[1]);
+                opt3.setVisibility(View.VISIBLE);
+                opt3.setText(options[2]);
             }
-            String in = reader.next();
+
+            while (submitted = false) {
+                Log.d("Questions", "Waiting for button press");
+            }
+
+            String in = "";
+            if (selected == 0) {
+                in = opt1.getText().toString();
+            } else if (selected == 1) {
+                in = opt2.getText().toString();
+            } else if (selected == 2) {
+                in = opt3.getText().toString();
+            }
             for(Dog dog: dogs) {
                 dog.increment(in, questions[i].getKey());
                 //System.out.println(dog);
@@ -34,10 +118,9 @@ public class InputParser {
         System.out.println("Matches:");
         for (Dog dog: dogs) {
             System.out.println(dog);
-
         }
-        */
     }
+
     public static Dog[] parseDogs(String fileName, Context context) {
         String line = null;
         Dog[] allDogs = new Dog[29];
@@ -128,4 +211,3 @@ public class InputParser {
         return questions;
     }
 }
-//ghg

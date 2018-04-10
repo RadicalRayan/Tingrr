@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.rayan.tingrr_1.Questions"
+    tools:context="com.example.rayan.tingrr_1.QuestionsActivity"
     android:padding="16dp">
 
     <ProgressBar
@@ -20,7 +20,7 @@
         android:progress="75" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/progressBar"
@@ -34,13 +34,13 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView3"
+        android:layout_below="@+id/question"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="29dp"
         app:srcCompat="@drawable/snow_mia" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnOne"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageView"
@@ -49,10 +49,10 @@
         android:text="Small Dogs" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnTwo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button"
+        android:layout_below="@+id/btnOne"
         android:layout_centerHorizontal="true"
         android:text="Big Dogs" />
 
@@ -60,22 +60,22 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button3"
+        android:layout_below="@+id/btnThree"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="22dp"
         android:text="How important is this to you?" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btnThree"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button2"
-        android:layout_alignStart="@+id/button2"
-        android:layout_below="@+id/button2"
+        android:layout_alignLeft="@+id/btnTwo"
+        android:layout_alignStart="@+id/btnTwo"
+        android:layout_below="@+id/btnTwo"
         android:text="Button" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/btnSubmit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/progressBar"
@@ -87,7 +87,7 @@
         android:id="@+id/seekBar2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button4"
+        android:layout_above="@+id/btnSubmit"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="11dp" />
 </RelativeLayout>
