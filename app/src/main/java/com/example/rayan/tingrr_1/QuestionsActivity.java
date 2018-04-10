@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -24,18 +25,26 @@ import java.util.StringTokenizer;
 public class QuestionsActivity extends AppCompatActivity {
 
     TextView txtQuestion;
+    ProgressBar progress;
     Button opt1;
     Button opt2;
     Button opt3;
     Button submit;
     public int selected = 0;
-    public boolean submitted = false;
+    public int questionNumber = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questions);
 
+        String dogFile = "DogInfo";
+        String QFile = "Questions";
+        final Dog[] dogs = parseDogs(dogFile, getApplicationContext());
+        final Question[] questions = parseQuestions(QFile, getApplicationContext());
+
+        progress = (ProgressBar) findViewById(R.id.progressBar);
+        progress.setProgress(0);
         opt1 = (Button) findViewById(R.id.btnOne);
         opt2 = (Button) findViewById(R.id.btnTwo);
         opt3 = (Button) findViewById(R.id.btnThree);
@@ -64,60 +73,61 @@ public class QuestionsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 selected = 2;
                 opt1.setBackgroundColor(Color.parseColor("white"));
-                opt2.setBackgroundColor(Color.parseColor("black"));
-                opt3.setBackgroundColor(Color.parseColor("white"));
+                opt2.setBackgroundColor(Color.parseColor("white"));
+                opt3.setBackgroundColor(Color.parseColor("black"));
             }
         });
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                submitted = true;
+                String in = "";
+                if (selected == 0) {
+                    in = opt1.getText().toString();
+                } else if (selected == 1) {
+                    in = opt2.getText().toString();
+                } else if (selected == 2) {
+                    in = opt3.getText().toString();
+                }
+
+                questionNumber++;
+                if (questionNumber < questions.length) {
+                    nextQuestion(questions);
+
+                    for (Dog dog : dogs) {
+                        dog.increment(in, questions[questionNumber].getKey());
+                        //System.out.println(dog);
+                    }
+
+                    Double completion = (((double) questionNumber + 1) / 9) * 100;
+                    progress.setProgress((int) (Math.round(completion)));
+                }
             }
         });
 
-        String dogFile = "DogInfo.txt";
-        String QFile = "QuestionsActivity.txt";
-        Dog[] dogs = parseDogs(dogFile, getApplicationContext());
-        Question[] questions = parseQuestions(QFile, getApplicationContext());
-        Scanner reader = new Scanner(System.in);
-        for (int i = 0; i < questions.length; i++) {
-            submitted = false;
-            txtQuestion.setText(questions[i].getQuestion());
-            String[] options = questions[i].getOptions();
-            if (options.length==2) {
-                opt1.setText(options[0]);
-                opt2.setText(options[1]);
-                opt3.setVisibility(View.INVISIBLE);
-            } else if (options.length==3) {
-                opt1.setText(options[0]);
-                opt2.setText(options[1]);
-                opt3.setVisibility(View.VISIBLE);
-                opt3.setText(options[2]);
-            }
+        /*
+        Sorting algo
 
-            while (submitted = false) {
-                Log.d("Questions", "Waiting for button press");
-            }
-
-            String in = "";
-            if (selected == 0) {
-                in = opt1.getText().toString();
-            } else if (selected == 1) {
-                in = opt2.getText().toString();
-            } else if (selected == 2) {
-                in = opt3.getText().toString();
-            }
-            for(Dog dog: dogs) {
-                dog.increment(in, questions[i].getKey());
-                //System.out.println(dog);
-            }
-        }
-        reader.close();
         SortDogs sortThem = new SortDogs();
         sortThem.sort(dogs, 0, dogs.length-1);
         System.out.println("Matches:");
         for (Dog dog: dogs) {
             System.out.println(dog);
+        }
+        */
+    }
+
+    public void nextQuestion(Question[] qs) {
+        txtQuestion.setText(qs[questionNumber].getQuestion());
+        String[] options = qs[questionNumber].getOptions();
+        if (options.length==2) {
+            opt1.setText(options[0]);
+            opt2.setText(options[1]);
+            opt3.setVisibility(View.INVISIBLE);
+        } else if (options.length==3) {
+            opt1.setText(options[0]);
+            opt2.setText(options[1]);
+            opt3.setVisibility(View.VISIBLE);
+            opt3.setText(options[2]);
         }
     }
 
@@ -147,12 +157,12 @@ public class QuestionsActivity extends AppCompatActivity {
             }
             b.close();
         }catch(FileNotFoundException ex) {
-            System.out.println(
+            Log.d("dog paarse",
                     "Unable to open file '" +
                             fileName + "'");
         }
         catch(IOException ex) {
-            System.out.println(
+            Log.d("dog parse",
                     "Error reading file '"
                             + fileName + "'");
             // Or we could just do this:
@@ -162,7 +172,7 @@ public class QuestionsActivity extends AppCompatActivity {
     }
     public static Question[] parseQuestions(String fileName, Context context) {
         String line = null;
-        Question[] questions = new Question[0];;
+        Question[] questions = new Question[0];
         try {
             InputStream fIn = context.getResources().getAssets().open(fileName);
             InputStreamReader fileReader = new InputStreamReader(fIn);
@@ -197,12 +207,12 @@ public class QuestionsActivity extends AppCompatActivity {
             }
             b.close();
         }catch(FileNotFoundException ex) {
-            System.out.println(
+            Log.e("questions",
                     "Unable to open file '" +
                             fileName + "'");
         }
         catch(IOException ex) {
-            System.out.println(
+            Log.e("questions",
                     "Error reading file '"
                             + fileName + "'");
             // Or we could just do this:
