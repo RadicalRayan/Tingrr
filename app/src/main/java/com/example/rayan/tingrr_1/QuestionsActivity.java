@@ -1,6 +1,7 @@
 package com.example.rayan.tingrr_1;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Debug;
 import android.support.v7.app.AppCompatActivity;
@@ -55,8 +56,11 @@ public class QuestionsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 selected = 0;
                 opt1.setBackgroundColor(Color.parseColor("black"));
+                opt1.setTextColor(Color.parseColor("white"));
                 opt2.setBackgroundColor(Color.parseColor("white"));
+                opt2.setTextColor(Color.parseColor("black"));
                 opt3.setBackgroundColor(Color.parseColor("white"));
+                opt3.setTextColor(Color.parseColor("black"));
             }
         });
         opt2.setOnClickListener(new View.OnClickListener() {
@@ -64,8 +68,11 @@ public class QuestionsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 selected = 1;
                 opt1.setBackgroundColor(Color.parseColor("white"));
+                opt1.setTextColor(Color.parseColor("black"));
                 opt2.setBackgroundColor(Color.parseColor("black"));
+                opt2.setTextColor(Color.parseColor("white"));
                 opt3.setBackgroundColor(Color.parseColor("white"));
+                opt3.setTextColor(Color.parseColor("black"));
             }
         });
         opt3.setOnClickListener(new View.OnClickListener() {
@@ -73,8 +80,11 @@ public class QuestionsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 selected = 2;
                 opt1.setBackgroundColor(Color.parseColor("white"));
+                opt1.setTextColor(Color.parseColor("black"));
                 opt2.setBackgroundColor(Color.parseColor("white"));
+                opt2.setTextColor(Color.parseColor("black"));
                 opt3.setBackgroundColor(Color.parseColor("black"));
+                opt3.setTextColor(Color.parseColor("white"));
             }
         });
         submit.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +110,11 @@ public class QuestionsActivity extends AppCompatActivity {
 
                     Double completion = (((double) questionNumber + 1) / 9) * 100;
                     progress.setProgress((int) (Math.round(completion)));
+                } else {
+                    SortDogs sortThem = new SortDogs();
+                    sortThem.sort(dogs, 0, dogs.length-1);
+
+                    listDogs(dogs[0], dogs[1], dogs[2], dogs[3]);
                 }
             }
         });
@@ -114,6 +129,15 @@ public class QuestionsActivity extends AppCompatActivity {
             System.out.println(dog);
         }
         */
+    }
+
+    public void listDogs(Dog one, Dog two, Dog three, Dog four) {
+        Intent i = new Intent(this, MainActivity.class);
+        i.putExtra("Dog1", one.toString());
+        i.putExtra("Dog2", two.toString());
+        i.putExtra("Dog3", three.toString());
+        i.putExtra("Dog4", four.toString());
+        startActivity(i);
     }
 
     public void nextQuestion(Question[] qs) {

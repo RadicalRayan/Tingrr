@@ -21,12 +21,28 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
+
+    private String[] dogNames = new String[4];
+
     FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras == null) {
+            dogNames[0] = "Golden Retriever1";
+            dogNames[1] = "Golden Retriever2";
+            dogNames[2] = "Golden Retriever3";
+            dogNames[3] = "Golden Retriever4";
+        } else {
+            dogNames[0] = extras.getString("Dog1");
+            dogNames[1] = extras.getString("Dog2");
+            dogNames[2] = extras.getString("Dog3");
+            dogNames[3] = extras.getString("Dog4");
+        }
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycleView);
         mRecyclerView.setHasFixedSize(true);
@@ -53,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList results = new ArrayList<CardObject>();
         Drawable image =  ContextCompat.getDrawable(this, R.drawable.snow_mia);
         for (int i = 0; i < 4; i++) {
-            CardObject obj = new CardObject("Golden Retriever" + i, "description text. description text. description text. description text. description text. description text.", image);
+            CardObject obj = new CardObject(dogNames[i], "description text. description text. description text. description text. description text. description text.", image);
             results.add(i, obj);
         }
         return results;
