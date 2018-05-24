@@ -1,5 +1,7 @@
 package com.example.rayan.tingrr_1;
 
+import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -20,12 +22,29 @@ public class RecycleViewActivity extends RecyclerView
         TextView title;
         TextView description;
         ImageView image;
+        public View view;
 
         public DataObjectHolder(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.textView);
             description = (TextView) itemView.findViewById(R.id.textView2);
             image = (ImageView) itemView.findViewById(R.id.img);
+
+            //on click listener
+            view = itemView;
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Intent openDes = new Intent(view.getContext(), DogInfo.class);
+                    //put extra name
+                    openDes.putExtra("Dog Name", title.getText().toString());
+                    view.getContext().startActivity(openDes);
+
+                }
+            });
+
+            //end on click
         }
     }
 
@@ -47,8 +66,17 @@ public class RecycleViewActivity extends RecyclerView
     public void onBindViewHolder(DataObjectHolder holder, int position) {
         holder.title.setText(mDataset.get(position).getName());
         holder.description.setText(mDataset.get(position).getDes());
-            holder.image.setImageDrawable(mDataset.get(position).getImage());
+        holder.image.setImageDrawable(mDataset.get(position).getImage());
+        /*
+        holder.image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        */
     }
+
 
     public void addItem(CardObject dataObj, int index) {
         mDataset.add(index, dataObj);

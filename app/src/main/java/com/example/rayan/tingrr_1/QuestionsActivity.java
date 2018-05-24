@@ -26,9 +26,9 @@ import java.util.StringTokenizer;
 public class QuestionsActivity extends AppCompatActivity {
 
     TextView txtQuestion;
-    ProgressBar progress;
     Button opt1;
     Button opt2;
+    ProgressBar progress;
     Button opt3;
     Button submit;
     public int selected = 0;
@@ -98,6 +98,7 @@ public class QuestionsActivity extends AppCompatActivity {
                 } else if (selected == 2) {
                     in = opt3.getText().toString();
                 }
+                in = in.substring(0, 1);
 
                 questionNumber++;
                 if (questionNumber < questions.length) {
@@ -133,11 +134,17 @@ public class QuestionsActivity extends AppCompatActivity {
 
     public void listDogs(Dog one, Dog two, Dog three, Dog four) {
         Intent i = new Intent(this, MainActivity.class);
-        i.putExtra("Dog1", one.toString());
-        i.putExtra("Dog2", two.toString());
-        i.putExtra("Dog3", three.toString());
-        i.putExtra("Dog4", four.toString());
+        i.putExtra("Dog1", trimName(one.toString()));
+        i.putExtra("Dog2", trimName(two.toString()));
+        i.putExtra("Dog3", trimName(three.toString()));
+        i.putExtra("Dog4", trimName(four.toString()));
         startActivity(i);
+    }
+
+    public String trimName(String input) {
+        input = input.replaceAll("\\d","");
+        input = input.replace("_", " ");
+        return input;
     }
 
     public void nextQuestion(Question[] qs) {

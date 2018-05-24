@@ -48,7 +48,7 @@ public class Dog {
             }
         }
         if (keyValue == 3) {
-            if (in.equals(space)) {
+            if (in.equals(space) || space.equals('N')) {
                 addPoints(10);
             }
         }
