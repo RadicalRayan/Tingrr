@@ -38,6 +38,7 @@
         android:layout_below="@+id/question"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
+        android:visibility="invisible"
         app:srcCompat="@drawable/snow_mia" />
 
     <Button

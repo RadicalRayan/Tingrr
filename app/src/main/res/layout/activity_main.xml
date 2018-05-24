@@ -22,12 +22,21 @@
         android:id="@+id/fabBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:paddingRight="25dp"
+        android:clickable="true"
         android:paddingBottom="25dp"
+        android:paddingRight="25dp"
         app:backgroundTint="@color/colorPrimary"
         app:fabSize="normal"
-        app:srcCompat="@android:drawable/ic_menu_add" />
+        app:srcCompat="@drawable/plus" />
+
+    <TextView
+        android:id="@+id/txtMatches"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="You have no matches! Click on the plus button to start a quiz and find your perfect dog!"
+        android:visibility="invisible" />
 </RelativeLayout>

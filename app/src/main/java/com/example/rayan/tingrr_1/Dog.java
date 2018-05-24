@@ -73,4 +73,61 @@ public class Dog {
         return name + points;
     }
 
+    public String description() {
+        String d = "";
+        if (size.equals("S")) {
+            d+="The " + name + " is a small dog which does not need a large yard. ";
+        } else if (size.equals("M")) {
+            d+="The " + name + " is a medium sized dog which will need a moderately large yard. ";
+        } else if (size.equals("L")){
+            d+="The " + name + " is a large dog which will need a large sized yard to be most comfortable. ";
+        }
+
+        if (energyLevel.equals("L")) {
+            d+="The dog has a very high energy level. ";
+        } else if(energyLevel.equals("M")) {
+            d+="The dog has a medium energy level. ";
+        } else if(energyLevel.equals("S")) {
+            d+="The dog has a low energy level. ";
+        }
+
+        if (grooming.equals("L")) {
+            d+="This dog will require a lot of grooming. ";
+        } else if(grooming.equals("M")) {
+            d+="This dog will require an average amount of grooming. ";
+        } else if(grooming.equals("S")) {
+            d+="This dog will require little grooming. ";
+        }
+
+        if (climate.equals("W")) {
+            d+="This dog will do well in warmer climates. ";
+        } else if (climate.equals("C")) {
+            d+="This dog will do better in colder environments. ";
+        } else if (climate.equals("N")) {
+            d+="This dog will do well in both cold and warm environments. ";
+        }
+
+        if (kids.equals("Y")) {
+            d+="This dog is fine with kids. ";
+        } else if (kids.equals("N")) {
+            d+="This dog would not be well behaved with kids. ";
+        }
+
+        if (allergenic.equals("N")) {
+            d+="This dog is not hypoallergenic. If you have allergies, you may have an allergic reaction with the dog. ";
+        } else if (allergenic.equals("Y")) {
+            d+="This dog is hypoallergenic. This dog will not cause significant allergies compared to other dogs. ";
+        }
+
+        if (space.equals("A")) {
+            d+="This dog would do best in an apartment. ";
+        } else if (space.equals("H")) {
+            d+="This dog would do best in a house. ";
+        } else if (space.equals("N")) {
+            d+="This dog would do well in either a house or an apartment. ";
+        }
+
+        return d;
+    }
+
 }
